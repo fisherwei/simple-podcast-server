@@ -24,7 +24,7 @@ var PodcastServer = function () {
         "port" : "3000",
         "documentRoot" : "public",
         "videoExtensions" : [".mp4"],
-        "audioExtensions" : [".mp3",".m4a"],
+        "audioExtensions" : [".mp3",".m4a",".aac"],
         "otherExtensions" : [],
         "coverArtFiles" : ["folder.png", "folder.jpg"],
         "useFilenameDates" : false,

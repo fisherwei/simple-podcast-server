@@ -20,7 +20,7 @@ var config = require('./config');
 var PodcastServer = function () {
 
     var defaults = {
-        "serverName" : "localhost",
+        "serverName" : process.env.serverName,
         "port" : "3000",
         "documentRoot" : "public",
         "videoExtensions" : [".mp4"],

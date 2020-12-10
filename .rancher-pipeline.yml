@@ -1,7 +1,0 @@
-stages:
-- name: Publish
-  steps:
-  - publishImageConfig:
-      dockerfilePath: ./Dockerfile
-      buildContext: .
-      tag: simple-podcast-server:${CICD_EXECUTION_SEQUENCE}

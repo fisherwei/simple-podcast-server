@@ -1,0 +1,24 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: satackey/action-docker-layer-caching@v0.0.8
+      # Ignore the failure of a step and avoid terminating the job.
+      continue-on-error: true
+    - name: Build the Docker image
+      run: docker build -t simple-podcast-server:latest -t simple-podcast-server:$(date +%y%m%d).${GITHUB_RUN_NUMBER} .
+
+    - name: Login
+      run: docker login docker.pkg.github.com --username fisherwei -p ${{ secrets.GITHUB_TOKEN }}
+    - name: Tag & Push
+      run: |
+        docker tag simple-podcast-server:latest docker.pkg.github.com/fisherwei/simple-podcast-server/simple-podcast-server:latest
+        docker push docker.pkg.github.com/fisherwei/simple-podcast-server/simple-podcast-server:latest

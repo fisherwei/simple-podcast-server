@@ -15,7 +15,7 @@ var enc_hex = require('crypto-js/enc-hex');
 var moment = require("moment");
 
 // load configFile
-var config = require('./config');
+//var config = require('./config');
 
 var PodcastServer = function () {
 

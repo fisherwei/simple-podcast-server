@@ -1,0 +1,59 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: podcast-server
+  namespace: default
+  labels:
+    app: podcast-server
+spec:
+  ports:
+  - name: web
+    port: 30443
+  selector:
+    app: podcast-server
+  clusterIP: None
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: podcast-server
+  namespace: default
+spec:
+  rules:
+  - host: podcast.f7i.de
+    http:
+      paths:
+      - backend:
+          serviceName: podcast-server
+          servicePort: 30443
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: podcast-server
+  labels:
+    app: podcast-server
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: podcast-server
+  template:
+    metadata:
+      labels:
+        app: podcast-server
+    spec:
+      imagePullSecrets:
+      - name: pipeline-docker-registry
+      containers:
+      - name: podcast-server
+        image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
+        env:
+          - name: serviceName
+            value: "https://podcast.f7i.de"
+          - name: port
+            value: "30443"
+        ports:
+        - containerPort: 30443
+          name: podcast-server

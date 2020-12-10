@@ -21,7 +21,7 @@ var PodcastServer = function () {
 
     var defaults = {
         "serverName" : process.env.serverName,
-        "port" : "3000",
+        "port" : process.env.port,
         "documentRoot" : "public",
         "videoExtensions" : [".mp4"],
         "audioExtensions" : [".mp3",".m4a",".aac"],

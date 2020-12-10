@@ -7,25 +7,13 @@ metadata:
     app: podcast-server
 spec:
   ports:
-  - name: web
-    port: 30443
+  - name: 3000tcp01
+    port: 3000
+    protocol: TCP
+    targetPort: 3000
   selector:
     app: podcast-server
   clusterIP: None
----
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: podcast-server
-  namespace: default
-spec:
-  rules:
-  - host: podcast.f7i.de
-    http:
-      paths:
-      - backend:
-          serviceName: podcast-server
-          servicePort: 30443
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -50,10 +38,10 @@ spec:
       - name: podcast-server
         image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         env:
-          - name: serviceName
+          - name: serverName
             value: "https://podcast.f7i.de"
           - name: port
-            value: "30443"
+            value: "3000"
         ports:
-        - containerPort: 30443
+        - containerPort: 3000
           name: podcast-server

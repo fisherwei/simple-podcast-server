@@ -16,6 +16,7 @@ var moment = require("moment");
 
 // load configFile
 //var config = require('./config');
+var config = {};
 
 var PodcastServer = function () {
 

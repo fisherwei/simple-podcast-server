@@ -36,7 +36,7 @@ var PodcastServer = function () {
         options[property] = config[property] || defaults[property];
     });
     var app = express();
-    var serverUrl = "http://" + options.serverName + ":" + options.port + "/"; 
+    var serverUrl = options.serverName + ":" + options.port + "/"; 
     var isMediaFile = function (filename) {
         var mediaExtensions = options.videoExtensions.concat(options.audioExtensions, options.otherExtensions);
         return _.contains(mediaExtensions, path.extname(filename));
